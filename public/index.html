@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Contact List App</title>
+    <script src="\node_modules\angular\angular.min.js"></script>
+    <script src="index.js"></script>
+    <link rel="stylesheet" href="\node_modules\bootstrap\dist\css\bootstrap.css"/>
+    <link href="styles.css" rel="stylesheet">
+
+</head>
+<body >
+    <div class="container" ng-controller="myCtrl as vm">
+        <h3 class="text-muted">Add a contact below</h3>   
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <form class="form-inline">
+                    <div class="form-group">
+                        <input class='form-control' placeholder="First Name" type="text" ng-model="vm.info.firstname" required/>
+                    </div>
+                    <div class="form-group">
+                        <input class='form-control' placeholder="Last Name" type="text" ng-model="vm.info.lastname" required/>
+                    </div>
+                    <div class="form-group">
+                        <input class='form-control' placeholder="Phone" type="text" ng-model="vm.info.phone" required/>
+
+                    </div>
+                    <div class="form-group">
+                        <input class='form-control' placeholder="Email" type="text" ng-model="vm.info.email" required/>
+                    </div>
+                    <div class="text-center form-group">
+                        <button class="btn btn-success btn-sm" title="Add" ng-disabled="vm.info._id" ng-click="vm.add();"><span class="glyphicon glyphicon-plus"></span> Add</button>
+
+                        <button type="button" class="btn btn-default btn-sm" ng-disabled="!vm.info._id" title="Update" ng-click="vm.update(vm.info._id);"><span class="glyphicon glyphicon-ok"></span> Update</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <hr>
+        <div>
+            <h3 class="text-muted">Contact List</h3>
+            <form class="form-search form-inline">
+                <input type="text" class="search-query" ng-model="search" placeholder="Search..." />
+            </form> 
+        </div>
+        <br>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <table id="lista-compras" class="table table-hover table-bordered">
+                    <thead>
+                        <tr>
+                            <th> First Name</th>
+                            <th> Last Name</th>
+                            <th> Phone</th>
+                            <th> Email</th>
+                            <th>Actions</th>
+                         </tr>
+                    </thead>
+                        <tbody>
+                            <tr ng-repeat="info in vm.infos | filter:search">
+                                <td>{{info.firstname}}</td>
+                                <td>{{info.lastname}}</td>
+                                <td>{{info.phone}}</td>
+                                <td>{{info.email}}</td>
+                                <td>
+                                    <div>
+                                        <button type="button" class="btn btn-warning btn-sm" title="Edit" ng-click="vm.edit(info._id);">
+                                        <span class="glyphicon glyphicon-edit"> Edit</span>
+                                        </button>
+
+                                        <button type="button" class="btn btn-danger btn-sm" title="Delete" ng-click="vm.del(info._id);">
+                                            <span class="glyphicon glyphicon-trash"> Delete</span>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>      
+                        </tbody>
+                      </table> 
+                </div>
+                <div class="panel-footer"><span> total {{ vm.infos.length }} contacts</span></div>
+        </div>           
+        <div class="content-footer">
+            <p>Yania Abreu © - 2017 <br>Theme By Bootstrap</p>
+        </div>
+    </div>
+</body>
+</html>
